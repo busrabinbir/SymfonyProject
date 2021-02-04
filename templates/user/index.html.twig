@@ -80,7 +80,7 @@
                                        class="item" data-toggle="tooltip" data-placement="top" title="Edit">
                                         <i class="zmdi zmdi-edit"></i>
                                     </a>
-                                    <a href="/user/delete/{{ user.id }}"
+                                    <a href="javascript:void(0)" onclick="if(confirm('Are you sure you want to delete user?')){window.location='{{ path('delete_user', {'id': user.id }) }}';}"
                                        class="item" data-toggle="tooltip" data-placement="top" title="Delete">
                                         <i class="zmdi zmdi-delete"></i>
                                     </a>

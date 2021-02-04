@@ -47,6 +47,36 @@ class User implements UserInterface
      */
     private $isVerified = false;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
+
+    /**
+     * Set deletedAt
+     *
+     * @ORM\PrePersist
+     * @return User
+     */
+    public function setDeletedAt()
+    {
+        $this->deletedAt = new \DateTime();
+
+        return $this;
+    }
+
+    /**
+     * Get deletedAt
+     *
+     * @return \DateTime
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

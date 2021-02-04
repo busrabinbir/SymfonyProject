@@ -21,7 +21,13 @@ class UserController extends AbstractController
      */
     public function index(): Response
     {
-        $users = $this->getDoctrine()->getRepository(User::class)->findAll();
+        //$users = $this->getDoctrine()->getRepository(User::class)->findAll();
+
+        $em = $this->getDoctrine()->getManager();
+        $connection = $em->getConnection();
+        $users = $connection->prepare("SELECT id,name,email FROM user WHERE deleted_at IS NULL");
+        $users->execute();
+
         return $this->render('user/index.html.twig', array
         ('users' => $users));
 
@@ -102,11 +108,15 @@ public function view($id){
      * @Method ({"DELETE"})
      */
     public function deleteUser(Request $request, $id){
-        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
-
+        /*$user = $this->getDoctrine()->getRepository(User::class)->find($id);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($user);
-        $entityManager->flush();
+        $entityManager->flush();*/
+
+        $em = $this->getDoctrine()->getManager();
+        $connection = $em->getConnection();
+        $statement = $connection->prepare("UPDATE user SET deleted_at = NOW() WHERE id = :id");
+        $statement->execute(['id' => $id]);
 
         return $this->redirectToRoute('user');
     }
