@@ -29,14 +29,9 @@
                 </div>
                 <div class="table-data__tool-right">
                         <a href="{{ path('create_user') }}" class="au-btn au-btn-icon au-btn--green au-btn--small"><i class="zmdi zmdi-plus"></i>add user</a>
-                    <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
-                        <select class="js-select2" name="type">
-                            <option selected="selected">Export</option>
-                            <option value="">Option 1</option>
-                            <option value="">Option 2</option>
-                        </select>
+
+                        <a href="{{ path('export_user') }}" class="au-btn au-btn-icon au-btn--blue au-btn--small">Export</a>
                         <div class="dropDownSelect2"></div>
-                    </div>
                 </div>
             </div>
             <div class="table-responsive table-responsive-data2">
@@ -49,6 +44,7 @@
                                 <span class="au-checkmark"></span>
                             </label>
                         </th>
+                        <th>name</th>
                         <th>email</th>
                         <th>status</th>
                         <th></th>
@@ -64,6 +60,9 @@
                                 </label>
                             </td>
                             <td>
+                                <span class="block-email">{{ user.name }}</span>
+                            </td>
+                            <td>
                                 <span class="block-email">{{ user.email }}</span>
                             </td>
                             <td>
@@ -72,7 +71,7 @@
                             <td></td>
                             <td>
                                 <div class="table-data-feature">
-                                <a href="/user/{{ user.id }}"
+                                <a href="/user/view/{{ user.id }}"
                                        class="item" data-toggle="tooltip" data-placement="top" title="View">
                                         <i class="zmdi zmdi-eye"></i>
                                     </a>
